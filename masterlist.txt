@@ -1,0 +1,21 @@
+Name,Address,Role
+Juan Dela Cruz,Brgy. San Jose,patient
+Maria Santos,Brgy. Balangasan,patient
+Jose Reyes,Brgy. San Pedro,patient
+Ana Lopez,Brgy. Danlugan, patient
+Pedro Cruz,Brgy. San Jose, patient
+Carmen Garcia,Brgy. Gatas, patient
+Antonio Torres,Brgy. Dumagoc,patient
+Elena Mendoza,Brgy. Dao, patient
+Ricardo Fernandez,Brgy. Banale,patient
+Lourdes Ramos,Brgy. Banale, patient
+Roberto Aquino,Brgy. San Pedro, patient
+Teresa Villanueva,Brgy. Tiguma, patient
+Fernando Castro,Brgy. Gatas, patient
+Sofia Del Rosario,Brgy. Napolan, patient
+Alberto Navarro,Brgy. Balintawak, patient
+Gloria Ortega,Brgy. Dumagoc, patient
+Ramon Santiago,Brgy. Balangasan, patient
+Concepcion Lim,Brgy. Balangasan, patient
+Arturo Chavez,Brgy. Balangasan, patient
+Rosario Bautista,Brgy. Balangasan,patient

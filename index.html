@@ -1,0 +1,67 @@
+<!-- index.html (Login Page) - No changes needed here, but included for completeness -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Management System - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="bhcmslogo.png" alt="BCHMS Logo" class="logo">
+        </div>
+        
+        <h1>Login to Health Management System</h1>
+        
+        <p class="info-text">
+            <strong>New Users:</strong> Get your login credentials from your Barangay Health Office. No signup required.
+        </p>
+        
+        <hr>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="userType">User Type</label>
+                <select id="userType" aria-required="true" required>
+                    <option value="" disabled selected>Select user type</option>
+                    <option value="system_admin">System Administrator</option>
+                    <option value="barangay_health">Barangay Health Personnel</option>
+                    <option value="health_worker">Barangay Health Worker</option>
+                    <option value="patient">Patient</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Username" aria-required="true" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password" aria-required="true" required>
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
+        </form>
+        
+        <div class="links">
+            <a href="#" id="forgotPassword">Forgot Your Password? Click Here.</a>
+            <a href="#" id="showUsers">Show Test Accounts</a>
+        </div>
+        
+        <div class="user-list" id="userList" style="display: none;">
+            <h3>Test Accounts (All passwords: pass123)</h3>
+            <div class="user-item"><span class="user-type">System Administrator:</span> admin_user</div>
+            <div class="user-item"><span class="user-type">Barangay Health Personnel:</span> health_personnel</div>
+            <div class="user-item"><span class="user-type">Doctor:</span> doctor_user</div>
+            <div class="user-item"><span class="user-type">Midwife:</span> midwife_user</div>
+            <div class="user-item"><span class="user-type">Nurse:</span> nurse_user</div>
+            <div class="user-item"><span class="user-type">Patient:</span> patient_user</div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Administrator Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <img src="bhcmslogo.png" alt="BCHMS Logo" class="logo">
+                <h1>System Administrator Dashboard</h1>
+                <span id="userWelcome" class="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <div class="card">
+                    <h2>System Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>Total Users</h3>
+                            <div class="stat-value" id="totalUsersCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <h3>Active Sessions</h3>
+                            <div class="stat-value" id="activeSessions">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="system-health">
+                        <h3>System Health</h3>
+                        <div class="health-item">
+                            <span>Database Status</span>
+                            <span class="status-indicator online">Online</span>
+                        </div>
+                        <div class="health-item">
+                            <span>System Update</span>
+                            <span class="status-indicator update-available">Available</span>
+                        </div>
+                        <div class="health-item">
+                            <span>Last Backup</span>
+                            <span id="lastBackup">2 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>Recent System Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <span class="activity-text">New user registration</span>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-text">System backup completed</span>
+                            <span class="activity-time">4 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <div class="card">
+                    <h2>System Management</h2>
+                    <div class="management-buttons">
+                        <button id="userManagementBtn" class="management-btn">User Management</button>
+                        <button id="systemSettingsBtn" class="management-btn">System Settings</button>
+                        <button id="auditLogsBtn" class="management-btn">Audit Logs</button>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="card content-area" id="contentArea">
+                    <div class="default-content">
+                        <h3>Welcome to System Administrator Dashboard</h3>
+                        <p>Select an option from the management buttons to get started.</p>
+                    </div>
+
+                    <!-- User Management Content -->
+                    <div class="management-content" id="userManagementContent" style="display: none;">
+                        <div class="content-header">
+                            <h3>User Management</h3>
+                            <button id="addUserBtn" class="add-btn">Add User</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userTableBody">
+                                    <!-- User data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- System Settings Content -->
+                    <div class="management-content" id="systemSettingsContent" style="display: none;">
+                        <h3>System Settings</h3>
+                        <div class="settings-section">
+                            <h4>Email Configuration</h4>
+                            <div class="config-item">
+                                <label for="smtpHost">SMTP Host</label>
+                                <input type="text" id="smtpHost" placeholder="smtp.gmail.com">
+                            </div>
+                            <div class="config-item">
+                                <label for="smtpPort">SMTP Port</label>
+                                <input type="number" id="smtpPort" value="587">
+                            </div>
+                            <div class="config-item">
+                                <label for="smtpUsername">SMTP Username</label>
+                                <input type="email" id="smtpUsername" placeholder="your-email@gmail.com">
+                            </div>
+                            <div class="config-item">
+                                <label for="smtpPassword">SMTP Password</label>
+                                <input type="password" id="smtpPassword" placeholder="App Password">
+                            </div>
+                            <div class="instructions">
+                                <h4>Gmail Setup Instructions:</h4>
+                                <ol>
+                                    <li>Enable 2-factor authentication on your Gmail account</li>
+                                    <li>Generate an App Password from Google Account settings</li>
+                                    <li>Use the App Password in the SMTP Password field above</li>
+                                    <li>Ensure SMTP Host is "smtp.gmail.com" and Port is "587"</li>
+                                </ol>
+                            </div>
+                            <button id="saveEmailConfigBtn" class="save-btn">Save Email Configuration</button>
+                        </div>
+                    </div>
+
+                    <!-- Audit Logs Content -->
+                    <div class="management-content" id="auditLogsContent" style="display: none;">
+                        <div class="content-header">
+                            <h3>System Audit Logs</h3>
+                            <button class="add-btn">Export Logs</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>User</th>
+                                        <th>Action</th>
+                                        <th>Target</th>
+                                        <th>IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditTableBody">
+                                    <!-- Audit logs will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add User</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userUsername">Username</label>
+                    <input type="text" id="userUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="userRole">Role</label>
+                    <select id="userRole" required>
+                        <option value="">Select Role</option>
+                        <option value="barangay_health">Barangay Health Personnel</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="midwife">Midwife</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="patient">Patient</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userStatus">Status</label>
+                    <select id="userStatus" required>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn">Cancel</button>
+                    <button type="submit" class="save-btn">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
