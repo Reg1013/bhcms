@@ -1,4 +1,4 @@
-<!-- health-dashboard.html - Updated with add credentials form, search bar, etc. (from DOCUMENT), no changes needed beyond ensuring IDs match JS -->
+<!-- health-dashboard.html - Updated with add credentials form, search bar, analytics modal, and report button -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Health Dashboard</title>
     <link rel="stylesheet" href="health-dashboard.css">
+    <!-- Add Chart.js for analytics charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -45,9 +47,11 @@
 
             <!-- Action Buttons -->
             <div class="card action-buttons">
-                <button id="viewCredentialsBtn" class="action-btn">View Generated Credentials</button>
-                <button id="addCredentialsBtn" class="action-btn">Add Credentials</button>
-                <!-- Add more buttons if needed -->
+                <div class="action-grid">
+                    <button id="viewCredentialsBtn" class="action-btn">View Generated Credentials</button>
+                    <button id="addCredentialsBtn" class="action-btn">Add Credentials</button>
+                    <button id="generateReportBtn" class="action-btn">Generate Report</button>
+                </div>
             </div>
 
             <!-- Add Credentials Form -->
@@ -133,7 +137,8 @@
             <div class="modal" id="credentialsView" style="display: none;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2>Generated Credentials</h2>                       
+                        <h2>Generated Credentials</h2>
+                        <button class="close-modal">×</button>
                     </div>
                     <div class="search-bar">
                         <input type="text" id="searchCredentialsInput" class="search-input" placeholder="Search by name, username, or role...">
@@ -157,6 +162,94 @@
                         </table>
                     </div>
                     <button id="closeCredentialsView" class="cancel-btn">Close</button>
+                </div>
+            </div>
+
+            <!-- Analytics View Modal (NEW) -->
+            <div class="modal" id="analyticsView" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Health Analytics Report</h2>
+                        <button class="close-modal" id="closeAnalyticsView">×</button>
+                    </div>
+                    <div class="analytics-controls">
+                        <select id="reportPeriod">
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                        <button id="refreshReportBtn" class="btn btn-primary">Refresh</button>
+                        <button id="exportReportBtn" class="btn btn-secondary">Export</button>
+                   </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Patients</h3>
+                            <div class="stat-number" id="totalPatients">0</div>
+                            <div class="stat-change positive">+12% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Services</h3>
+                            <div class="stat-number" id="totalServices">0</div>
+                            <div class="stat-change positive">+8% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Health Workers</h3>
+                            <div class="stat-number" id="healthWorkers">0</div>
+                            <div class="stat-change positive">+5% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Avg. Satisfaction</h3>
+                            <div class="stat-number" id="avgSatisfaction">0.0</div>
+                            <div class="stat-change positive">+0.2 from last month</div>
+                        </div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Services Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="servicesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Monthly Activity</h3>
+                            <div class="chart-container">
+                                <canvas id="monthlyActivityChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Patient Demographics</h3>
+                            <div class="chart-container">
+                                <canvas id="demographicsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Worker Performance</h3>
+                            <div class="chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <h3>Top Services</h3>
+                            <div class="report-content" id="topServicesReport"></div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Recent Activities</h3>
+                            <div class="report-content" id="recentActivitiesReport"></div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Patient Statistics</h3>
+                            <div class="report-content" id="patientStatsReport"></div>
+                        </div>
+                        <div class="report-card">
+                            <h3>Worker Overview</h3>
+                            <div class="report-content" id="workerOverviewReport"></div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="closeAnalyticsView" class="cancel-btn">Close</button>
+                   </div>
                 </div>
             </div>
         </main>
