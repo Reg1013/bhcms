@@ -75,6 +75,7 @@
                     <h2>System Management</h2>
                     <div class="management-buttons">
                         <button id="userManagementBtn" class="management-btn">User Management</button>
+                        <button id="systemInfoBtn" class="management-btn">System Information</button>
                         <button id="systemSettingsBtn" class="management-btn">System Settings</button>
                         <button id="auditLogsBtn" class="management-btn">Audit Logs</button>
                     </div>
@@ -111,9 +112,74 @@
                         </div>
                     </div>
 
+                    <!-- System Information Content -->
+                    <div class="management-content" id="systemInfoContent" style="display: none;">
+                        <div class="content-header">
+                            <h3>System Information</h3>
+                            <button id="saveProfileInfoBtn" class="save-btn">Save Changes</button>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h4>Administrator Profile</h4>
+                            <div class="config-item">
+                                <label for="adminName">Full Name</label>
+                                <input type="text" id="adminName" required>
+                            </div>
+                            <div class="config-item">
+                                <label for="adminEmail">Email Address</label>
+                                <input type="email" id="adminEmail">
+                            </div>
+                            <div class="config-item">
+                                <label for="adminUsername">Username</label>
+                                <input type="text" id="adminUsername" required>
+                            </div>
+                            <div class="config-item">
+                                <label for="adminPhone">Phone Number</label>
+                                <input type="tel" id="adminPhone">
+                            </div>
+                            <div class="config-item">
+                                <label for="adminAddress">Address</label>
+                                <textarea id="adminAddress" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>System Details</h4>
+                            <div class="config-item">
+                                <label for="systemName">System Name</label>
+                                <input type="text" id="systemName" required>
+                            </div>
+                            <div class="config-item">
+                                <label for="systemVersion">System Version</label>
+                                <input type="text" id="systemVersion" required>
+                            </div>
+                            <div class="config-item">
+                                <label for="supportEmail">Support Email</label>
+                                <input type="email" id="supportEmail">
+                            </div>
+                            <div class="config-item">
+                                <label for="supportPhone">Support Phone</label>
+                                <input type="tel" id="supportPhone">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- System Settings Content -->
                     <div class="management-content" id="systemSettingsContent" style="display: none;">
                         <h3>System Settings</h3>
+                        
+                        <div class="settings-section">
+                            <h4>System Maintenance</h4>
+                            <div class="config-item">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="systemMaintenanceToggle">
+                                    <span class="toggle-slider"></span>
+                                    Enable System Maintenance Mode
+                                </label>
+                                <p class="config-description">When enabled, the system will be unavailable for all users except administrators.</p>
+                            </div>
+                        </div>
+
                         <div class="settings-section">
                             <h4>Email Configuration</h4>
                             <div class="config-item">
@@ -188,15 +254,14 @@
                 <div class="form-group">
                     <label for="userUsername">Username</label>
                     <input type="text" id="userUsername" required>
+                    <small>Username must be unique</small>
                 </div>
                 <div class="form-group">
                     <label for="userRole">Role</label>
                     <select id="userRole" required>
                         <option value="">Select Role</option>
                         <option value="barangay_health">Barangay Health Personnel</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="midwife">Midwife</option>
-                        <option value="nurse">Nurse</option>
+                        <option value="health_worker">Health Worker</option>
                         <option value="patient">Patient</option>
                     </select>
                 </div>
