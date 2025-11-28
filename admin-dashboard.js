@@ -27,11 +27,6 @@ function setupEventListeners() {
         loadUserManagementData();
     });
 
-    document.getElementById('systemInfoBtn').addEventListener('click', () => {
-        showContent('systemInfo');
-        loadSystemInfo();
-    });
-
     document.getElementById('systemSettingsBtn').addEventListener('click', () => {
         showContent('systemSettings');
         loadSystemSettings();
@@ -59,9 +54,6 @@ function setupEventListeners() {
     // Modal events
     setupModalEvents();
 
-    // Save email configuration
-    document.getElementById('saveEmailConfigBtn').addEventListener('click', saveEmailConfiguration);
-
     // System maintenance toggle
     document.getElementById('systemMaintenanceToggle').addEventListener('change', toggleSystemMaintenance);
 }
@@ -76,7 +68,6 @@ function showContent(contentType) {
     
     const contentMap = {
         'userManagement': 'userManagementContent',
-        'systemInfo': 'systemInfoContent',
         'systemSettings': 'systemSettingsContent',
         'auditLogs': 'auditLogsContent',
         'default': 'default-content'
@@ -153,10 +144,11 @@ function loadUserManagementData() {
     });
 }
 
-// Load system information
-function loadSystemInfo() {
+// Load system settings
+function loadSystemSettings() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
     const systemInfo = JSON.parse(localStorage.getItem('systemInfo') || '{}');
+    const systemSettings = JSON.parse(localStorage.getItem('systemSettings') || '{}');
     
     // Set current values
     document.getElementById('adminName').value = systemInfo.name || currentUser.name || '';
@@ -168,15 +160,9 @@ function loadSystemInfo() {
     document.getElementById('systemVersion').value = systemInfo.systemVersion || '1.0.0';
     document.getElementById('supportEmail').value = systemInfo.supportEmail || '';
     document.getElementById('supportPhone').value = systemInfo.supportPhone || '';
-}
-
-// Load system settings
-function loadSystemSettings() {
-    const systemSettings = JSON.parse(localStorage.getItem('systemSettings') || '{}');
+    
+    // Set maintenance mode toggle
     document.getElementById('systemMaintenanceToggle').checked = systemSettings.maintenanceMode || false;
-    document.getElementById('smtpHost').value = systemSettings.smtpHost || '';
-    document.getElementById('smtpPort').value = systemSettings.smtpPort || '587';
-    document.getElementById('smtpUsername').value = systemSettings.smtpUsername || '';
 }
 
 // Load audit logs
@@ -378,34 +364,6 @@ function deleteUser(username, userType) {
         loadUserManagementData();
         loadDashboardData(); // Refresh dashboard stats
     }
-}
-
-// Save email configuration
-function saveEmailConfiguration() {
-    const smtpHost = document.getElementById('smtpHost').value;
-    const smtpPort = document.getElementById('smtpPort').value;
-    const smtpUsername = document.getElementById('smtpUsername').value;
-    const smtpPassword = document.getElementById('smtpPassword').value;
-
-    if (!smtpHost || !smtpPort || !smtpUsername) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-    }
-
-    const systemSettings = JSON.parse(localStorage.getItem('systemSettings') || '{}');
-    systemSettings.smtpHost = smtpHost;
-    systemSettings.smtpPort = smtpPort;
-    systemSettings.smtpUsername = smtpUsername;
-    if (smtpPassword) {
-        systemSettings.smtpPassword = smtpPassword;
-    }
-
-    localStorage.setItem('systemSettings', JSON.stringify(systemSettings));
-
-    // Add to audit log
-    addAuditLog('Email Configuration Updated', 'System Settings', 'system_admin');
-
-    showNotification('Email configuration saved successfully!', 'success');
 }
 
 // Toggle system maintenance
