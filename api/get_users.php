@@ -1,33 +1,31 @@
 <?php
 // api/get_users.php
-require 'config.php';
+session_start();
+header('Content-Type: application/json');
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['user_type'] !== 'system_admin') {
-    http_response_code(403);
-    echo json_encode(['message' => 'Forbidden']);
-    exit;
+    echo json_encode(["success" => false, "message" => "Unauthorized"]);
+    exit();
 }
 
-$sql = "SELECT 
-    u.id, 
-    u.username, 
-    u.role,
-    u.created_at,
-    COALESCE(sa.name, bhwp.name, hw.name, p.name) as name,
-    COALESCE(sa.status, bhwp.status, hw.status, p.status) as status
-FROM users u
-LEFT JOIN system_admins sa ON u.id = sa.user_id
-LEFT JOIN bhw_personnel bhwp ON u.id = bhwp.user_id
-LEFT JOIN health_workers hw ON u.id = hw.user_id
-LEFT JOIN patients p ON u.id = p.user_id
-ORDER BY u.created_at DESC";
+require 'config.php';
 
-$result = $conn->query($sql);
-$users = [];
-
-while ($row = $result->fetch_assoc()) {
-    $users[] = $row;
+try {
+    $result = $conn->query("SELECT id, name, username, user_type, status FROM users ORDER BY name ASC");
+    
+    $users = [];
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+    
+    echo json_encode($users);
+    
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Error fetching users"]);
 }
 
-echo json_encode($users);
+if (isset($conn)) {
+    $conn->close();
+}
 ?>

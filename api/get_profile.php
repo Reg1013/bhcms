@@ -12,7 +12,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['user_type'] !== 'patient') {
 
 $user_id = $_SESSION['user']['id'];
 
-$stmt = $conn->prepare("SELECT name, email, phone, address, dob, blood_type FROM patients WHERE user_id = ?");
+// ✅ FIXED: Use the correct column names from your database
+$stmt = $conn->prepare("SELECT name, phone, address, date_of_birth, blood_type, gender FROM patients WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -21,16 +22,21 @@ if ($row = $result->fetch_assoc()) {
     echo json_encode([
         'success' => true,
         'name' => $row['name'] ?? '',
-        'email' => $row['email'] ?? '',
         'phone' => $row['phone'] ?? '',
         'address' => $row['address'] ?? '',
-        'dob' => $row['dob'] ?? '',
+        'dob' => $row['date_of_birth'] ?? '',
+        'gender' => $row['gender'] ?? '', // ✅ FIXED: Changed $profile to $row
         'blood_type' => $row['blood_type'] ?? ''
     ]);
 } else {
     echo json_encode([
-        'success' => false,
-        'message' => 'Profile not found'
+        'success' => true,
+        'name' => '',
+        'phone' => '',
+        'address' => '',
+        'dob' => '',
+        'gender' => '',
+        'blood_type' => ''
     ]);
 }
 

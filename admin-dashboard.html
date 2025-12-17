@@ -36,7 +36,7 @@
                             <div class="stat-value" id="activeSessions">0</div>
                         </div>
                     </div>
-                    
+
                     <div class="system-health">
                         <h3>System Health</h3>
                         <div class="health-item">
@@ -53,18 +53,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card">
                     <h2>Recent System Activity</h2>
                     <div class="activity-list">
-                        <div class="activity-item">
-                            <span class="activity-text">New user registration</span>
-                            <span class="activity-time">2 hours ago</span>
-                        </div>
-                        <div class="activity-item">
-                            <span class="activity-text">System backup completed</span>
-                            <span class="activity-time">4 hours ago</span>
-                        </div>
+                        <!-- Dynamic activities will be populated here -->
                     </div>
                 </div>
             </div>
@@ -75,6 +68,7 @@
                     <h2>System Management</h2>
                     <div class="management-buttons">
                         <button id="userManagementBtn" class="management-btn">User Management</button>
+                        <button id="systemInfoBtn" class="management-btn">System Information</button>
                         <button id="systemSettingsBtn" class="management-btn">System Settings</button>
                         <button id="auditLogsBtn" class="management-btn">Audit Logs</button>
                     </div>
@@ -111,40 +105,78 @@
                         </div>
                     </div>
 
-                    <!-- System Settings Content -->
-                    <div class="management-content" id="systemSettingsContent" style="display: none;">
-                        <h3>System Settings</h3>
+                    <!-- System Information Content -->
+                    <div class="management-content" id="systemInfoContent" style="display: none;">
+                        <div class="content-header">
+                            <h3>System Information</h3>
+                            <button id="saveProfileInfoBtn" class="save-btn">Save Changes</button>
+                        </div>
+
                         <div class="settings-section">
-                            <h4>Email Configuration</h4>
+                            <h4>Administrator Profile</h4>
                             <div class="config-item">
-                                <label for="smtpHost">SMTP Host</label>
-                                <input type="text" id="smtpHost" placeholder="smtp.gmail.com">
-                            </div>
-                            <div class="config-item">
-                                <label for="smtpPort">SMTP Port</label>
-                                <input type="number" id="smtpPort" value="587">
+                                <label for="adminName">Full Name</label>
+                                <input type="text" id="adminName" required>
                             </div>
                             <div class="config-item">
-                                <label for="smtpUsername">SMTP Username</label>
-                                <input type="email" id="smtpUsername" placeholder="your-email@gmail.com">
+                                <label for="adminEmail">Email Address</label>
+                                <input type="email" id="adminEmail">
                             </div>
                             <div class="config-item">
-                                <label for="smtpPassword">SMTP Password</label>
-                                <input type="password" id="smtpPassword" placeholder="App Password">
+                                <label for="adminUsername">Username</label>
+                                <input type="text" id="adminUsername" required>
                             </div>
-                            <div class="instructions">
-                                <h4>Gmail Setup Instructions:</h4>
-                                <ol>
-                                    <li>Enable 2-factor authentication on your Gmail account</li>
-                                    <li>Generate an App Password from Google Account settings</li>
-                                    <li>Use the App Password in the SMTP Password field above</li>
-                                    <li>Ensure SMTP Host is "smtp.gmail.com" and Port is "587"</li>
-                                </ol>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>System Details</h4>
+                            <div class="config-item">
+                                <label for="systemName">System Name</label>
+                                <input type="text" id="systemName" required>
                             </div>
-                            <button id="saveEmailConfigBtn" class="save-btn">Save Email Configuration</button>
+                            <div class="config-item">
+                                <label for="systemVersion">System Version</label>
+                                <input type="text" id="systemVersion" required>
+                            </div>
                         </div>
                     </div>
 
+<!-- System Settings Content -->
+<div class="management-content" id="systemSettingsContent" style="display: none;">
+    <h3>System Settings</h3>
+    
+    <div class="settings-section">
+        <h4>System Maintenance</h4>
+        <div class="config-item">
+            <label class="toggle-label">
+                <input type="checkbox" id="systemMaintenanceToggle">
+                <span class="toggle-slider"></span>
+                Enable System Maintenance Mode
+            </label>
+            <p class="config-description">When enabled, the system will be unavailable for all users except administrators.</p>
+        </div>
+    </div>
+
+    <div class="settings-section">
+        <h4>Notification Settings</h4>
+        <div class="config-item">
+            <label class="toggle-label">
+                <input type="checkbox" id="enablePushNotifications">
+                <span class="toggle-slider"></span>
+                Enable Browser Notifications
+            </label>
+            <p class="config-description">Allow the system to show browser notifications for important events.</p>
+        </div>
+        <div class="config-item">
+            <label class="toggle-label">
+                <input type="checkbox" id="enableSoundNotifications">
+                <span class="toggle-slider"></span>
+                Enable Notification Sounds
+            </label>
+            <p class="config-description">Play sound when new notifications arrive.</p>
+        </div>
+    </div>
+</div>
                     <!-- Audit Logs Content -->
                     <div class="management-content" id="auditLogsContent" style="display: none;">
                         <div class="content-header">
@@ -188,15 +220,14 @@
                 <div class="form-group">
                     <label for="userUsername">Username</label>
                     <input type="text" id="userUsername" required>
+                    <small>Username must be unique</small>
                 </div>
                 <div class="form-group">
                     <label for="userRole">Role</label>
                     <select id="userRole" required>
                         <option value="">Select Role</option>
                         <option value="barangay_health">Barangay Health Personnel</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="midwife">Midwife</option>
-                        <option value="nurse">Nurse</option>
+                        <option value="health_worker">Health Worker</option>
                         <option value="patient">Patient</option>
                     </select>
                 </div>
@@ -214,7 +245,6 @@
             </form>
         </div>
     </div>
-
     <script src="admin-dashboard.js"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <?php
-// api/check_username.php - Check if username exists (for real-time validation)
+// api/check_username.php - FIXED AUTH CHECK
 session_start();
 header('Content-Type: application/json');
 require 'config.php';
 
-// Optional: Only allow logged-in barangay_health
-if (!isset($_SESSION['user']) || $_SESSION['user']['user_type'] !== 'barangay_health') {
+// FIXED: Check for 'bhw' instead of 'barangay_health'
+if (!isset($_SESSION['user']) || $_SESSION['user']['user_type'] !== 'bhw') {
     echo json_encode(['exists' => false]);
     exit;
 }
